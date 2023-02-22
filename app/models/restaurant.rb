@@ -1,16 +1,7 @@
 class Restaurant < ApplicationRecord
- def change
-      create_table :restaurants do |t|
-        t.string :name
-        t.string :address
-        t.string :category
-        t.integer :phone_number
+  CATEGORIES = ["chinese", "italian", "japanese", "french", "belgian"]
 
-        t.timestamps
-      end
-    end
-  end
-  def category
-    category = ["chinese", "italian", "japanese", "french", "belgian"]
-  end
+  validates :name, :address, presence: true
+  validates :category, inclusion: { in: CATEGORIES }
+  has_many :reviews, dependent: :destroy
 end
